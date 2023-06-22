@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>간편인증서비스</title>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+    <link rel="stylesheet" href="assets/scss/common.css" />
+    <link rel="stylesheet" href="assets/scss/main.css" /><!--  메인페이지 공통 css-->
+
+    <!-- test Js -->
+    <script type="text/javascript" src="assets/js/libs/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/libs/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/js/libs/crypto-js.min.js"></script>
+    <script type="text/javascript" src="assets/js/libs/jsencrypt.min.js"></script>
+    <script type="text/javascript" src="assets/js/libs/dexie.js"></script>
+
+    <!-- cert Sdk start -->
+    <!--
+      <script src="assets/js/withauthSdk/withAuthSdk.js"></script>
+    -->
+    <!-- cert Sdk end -->
+</head>
+
+<body class="scroll_lock">
+<div class="wrap">
+    <main id="container" class="container">
+        <div class="popup_dimmed"></div></main>
+
+
+    <!-- 02.[S001] 인증사업자 추가 완료 12-->
+    <section class="layer_popup_wrap w_md " data-popup="alert_modal2" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 120px;">
+                <p class="f18">선택하신 인증사업자가<br>정상적으로 추가되었습니다.</p>
+                <button popup-close="alert_modal2" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 02.[S001] 인증사업자 추가 완료 -->
+
+    <!-- 03.[S002] 인증사업자 삭제 완료 13-->
+    <section class="layer_popup_wrap w_md" data-popup="alert_modal3" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 120px;">
+                <p class="f18">선택하신 인증사업자가<br>정상적으로 삭제되었습니다.</p>
+                <button popup-close="alert_modal3" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 03.[S002] 인증사업자 삭제 완료 -->
+
+    <!-- 04.[S003] 추가할 인증사업자 미선택 시 14-->
+    <section class="layer_popup_wrap w_md" data-popup="alert_modal4" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 120px;">
+                <p class="f18">추가하실 인증사업자를<br>선택해 주세요.</p>
+                <button popup-close="alert_modal4" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 04.[S003] 추가할 인증사업자 미선택 시 -->
+
+    <!-- 05.[S004] 삭제할 인증사업자 미선택 시 15-->
+    <section class="layer_popup_wrap w_md" data-popup="alert_modal5" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 120px;">
+                <p class="f18">삭제하실 인증사업자를<br>선택해 주세요.</p>
+                <button popup-close="alert_modal5" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 05.[S004] 삭제할 인증사업자 미선택 시 -->
+
+    <!-- 06.[C001] 인증정보 저장 확인 16-->
+    <section class="layer_popup_wrap w_md" data-popup="alert_modal6" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 100px;">
+                <p class="f16">인증정보를 저장하시겠습니까?<br>인증정보는 브라우저에 암호화 후 저장됩니다.</p>
+                <p style="color: red; font-size: 12px;">공용PC 및 단말기에서는 저장을 자제해 주세요!</p>
+                <button popup-close="alert_modal6" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+                <button popup-close="alert_modal6" class="btn btn_round btn_sm bg_puple" popup-confirm="close" style="margin-top: 20px; background-color: #E1E1E1;">취소</button>
+            </div>
+        </div>
+    </section>
+    <!-- 06.[C001] 인증정보 저장 확인 -->
+
+    <!-- 07.[S005] 이름 입력 안내 17-->
+    <section class="layer_popup_wrap w_md" data-popup="alert_modal7" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 140px;">
+                <p class="f18">이름을 입력하여 주십시오.</p>
+                <button popup-close="alert_modal7" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 07.[S005] 이름 입력 안내 -->
+
+    <!-- 08.[S006] 생년월일 입력 안내 18-->
+    <section class="layer_popup_wrap w_md popup_open" data-popup="alert_modal8" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 140px;">
+                <p class="f18">생년월일을 입력하여 주십시오.</p>
+                <button popup-close="alert_modal8" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 08.[S006] 생년월일 입력 안내 -->
+
+    <!-- 09.[S007] 휴대폰번호 입력 안내 19-->
+    <section class="layer_popup_wrap w_md" data-popup="alert_modal9" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 140px;">
+                <p class="f18">휴대폰번호를 입력하여 주십시오.</p>
+                <button popup-close="alert_modal9" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 09.[S007] 휴대폰번호 입력 안내 -->
+
+    <!-- 10.[S008] 약관 동의 안내 20-->
+    <section class="layer_popup_wrap w_md" data-popup="alert_modal10" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 120px;">
+                <p class="f18">인증서비스 이용을 위해서는<br>약관 동의를 하셔야 합니다.</p>
+                <button popup-close="alert_modal10" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 10.[S008] 약관 동의 안내 -->
+
+    <!-- 11.[E002] 사용자 정보 불일치 21-->
+    <section class="layer_popup_wrap w_md" data-popup="alert_modal11" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 120px;">
+                <p class="f16" id="errTxt">아래 사항 확인 후 재시도 부탁 드립니다.</p>
+                <div class="poptext_le">
+                    <span style="font-size: 12px;">* 사용자 정보 확인</span><br>
+                    <span style="font-size: 12px;">* 인증사업자의 인증서 (재)발급</span>
+                </div>
+                <button popup-close="alert_modal11" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 11.[E002] 사용자 정보 불일치 -->
+
+    <!-- 12.[S009] 유효 시간 만료 22-->
+    <section class="layer_popup_wrap w_md" data-popup="alert_modal12" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 120px;">
+                <p class="f18">유효 시간이 만료되었습니다.</p>
+                <p class="f16">간편인증 화면을 닫고 다시 실행해 주세요.</p>
+                <button popup-close="alert_modal12" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 12.[S009] 유효 시간 만료 -->
+
+    <!-- 13.[S010] 인증 미완료 23-->
+    <section class="layer_popup_wrap w_md" data-popup="alert_modal13" role="dialog">
+        <div class="layer_popup_inner" style="width: 350px; min-height: 350px;">
+            <div class="layer_popup_title" style="display:none;"></div>
+            <div class="layer_popup_contents3" style="height: 0; padding-top: 120px;">
+                <p class="f18">인증이 완료되지 않았습니다.</p>
+                <p class="f16">휴대폰에서 인증 알림 확인 후<br>인증을 진행해 주세요.</p>
+                <button popup-close="alert_modal13" class="btn btn_round btn_sm bg_puple" style="margin-top: 20px;">확인</button>
+            </div>
+        </div>
+    </section>
+    <!-- 13.[S010] 인증 미완료 -->
+
+</div>
+
+
+</body>
+
+</html>
