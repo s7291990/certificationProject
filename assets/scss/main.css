@@ -368,6 +368,8 @@
     .layer_popup_wrap .layer_popup_title{position:relative;}
     .layer_popup_wrap .layer_popup_title .r_title .r_img4{max-width:56px;position:static;margin:20px auto 0 auto;}
     .layer_popup_wrap .layer_popup_title .r_title .r_img3{right:0;top:0;max-width:40px;}
+    .bottom_text{padding:20px;font-size:14px;}
+    .check_ty2 input[type="checkbox"].type_a + label{font-size:14px;}
 
 }
 @media (max-width:600px) {

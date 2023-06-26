@@ -230,7 +230,7 @@ body { font-size: 14px; }
 
 .layer_popup_wrap .layer_popup_title .r_title {position: absolute; right: 0; top: 57px; width: 192px; font-weight: 200; font-size: 12px; color: #979797;}
 
-.layer_popup_wrap .layer_popup_title .r_title img {width: 8%; display: inline-block; align-content: center; margin-right: 3px;}
+.layer_popup_wrap .layer_popup_title .r_title img {width: 8%; display: inline-block; align-content: center; margin-right: 3px;max-width:18px;}
 
 .layer_popup_wrap .layer_popup_title .r_title .r_img {width: 80%; margin-top: -35px;}
 
