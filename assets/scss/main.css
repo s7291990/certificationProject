@@ -123,10 +123,9 @@
 
 .check_ty2 {
     display: inline-block;
-    position: absolute;
-    left: 40px;
-    bottom: 92px;
+    position: relative;padding:20px;
 }
+.check_ty2 input[type="checkbox"].type_a + label{position:relative;}
 
 .check_ty2 input {
     font-size: 0;
